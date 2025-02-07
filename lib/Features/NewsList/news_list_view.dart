@@ -17,7 +17,7 @@ class NewsListView extends StatefulWidget {
 }
 
 class _HomeState extends State<NewsListView> {
-  List<Article> articles = [];
+  List<NewsData> articles = [];
   bool loading = false;
 
   @override
@@ -74,7 +74,7 @@ class _HomeState extends State<NewsListView> {
       final httpResponse = await http.get(apiURL);
       log(httpResponse.body.toString());
       final jsonResponse = jsonDecode(httpResponse.body.toString());
-      final response = HomeDataModel.fromJson(jsonResponse);
+      final response = NewsListData.fromJson(jsonResponse);
       articles = response.articles ?? [];
       log("length ${articles.length}");
       setState(() => loading = false);
@@ -86,7 +86,7 @@ class _HomeState extends State<NewsListView> {
 }
 
 class ArticleView extends StatelessWidget {
-  final Article article;
+  final NewsData article;
   const ArticleView({super.key, required this.article});
 
   @override
